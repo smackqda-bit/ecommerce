@@ -1,0 +1,125 @@
+@import "tailwindcss";
+@import "@fontsource-variable/manrope";
+@import "@fontsource/jetbrains-mono/cyrillic-500.css";
+@import "@fontsource/jetbrains-mono/latin-500.css";
+
+@theme {
+  --font-sans: "Manrope Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-milk: #f4f1ea;
+  --color-sand: #ebe6dc;
+  --color-stone: #e6e1d7;
+  --color-field: #fbfaf6;
+  --color-ink: #1c1c1b;
+  --color-ink-2: #3f3c37;
+  --color-mute: #5e5a53;
+  --color-faint: #8c877d;
+  --color-line: #d9d3c7;
+  --color-line-2: #bdb6a8;
+  --color-cobalt: #1e3fcc;
+  --color-cobalt-deep: #1631a6;
+  --color-error: #b3261e;
+  --color-ok: #e4e9fb;
+  --color-warn: #fbefd9;
+  --color-warn-line: #e2c48a;
+
+  --color-fab-milk: #efebe3;
+  --color-fab-graphite: #3a3a37;
+  --color-fab-cobalt: #1e3fcc;
+  --color-fab-melange: #a9a39a;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-milk);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-milk);
+    min-height: 100dvh;
+  }
+  ::selection {
+    background: var(--color-cobalt);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-cobalt);
+    outline-offset: 3px;
+  }
+  button {
+    cursor: pointer;
+  }
+  img {
+    user-select: none;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@utility wrap {
+  padding-inline: clamp(16px, 4vw, 56px);
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Подчёркивание, которое рисуется слева направо */
+@utility link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.6s var(--ease-out-expo), color 0.3s;
+  &:hover {
+    background-size: 100% 1px;
+  }
+}
+
+@utility link-line-on {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.6s var(--ease-out-expo);
+  &:hover {
+    background-size: 0% 1px;
+  }
+}
+
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgb(30 63 204 / 0.45); }
+  70% { box-shadow: 0 0 0 10px rgb(30 63 204 / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(30 63 204 / 0); }
+}
+.pulse-dot {
+  animation: pulse-dot 2.4s var(--ease-soft) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot { animation: none; }
+  .link-line, .link-line-on { transition: none; }
+}
